@@ -1,0 +1,31 @@
+<div class="col-md-6 mx-auto">
+    <div class="card mt-5">
+        <div class="card-header" style="color:midnightblue"><h3>Pridėti naują receptą</h3></div>
+        <div class="card-body">
+            <form [formGroup]="reactiveForm" (ngSubmit)="onPostReceptai(forma)" #forma="ngForm">
+                <div class="mb-3">
+                    <label for="" class="form-label" style="color:saddlebrown" >Recepto pavadinimas</label>
+                    <input type="text" class="form-control" placholder="Įrašykite recepto pavadinimą" ngModel name="name" formControlName="name">
+                    <span class="help-block" *ngIf="reactiveForm.get('name').touched && !reactiveForm.get('name').valid">Laukas privalomas</span>
+                </div>
+                <label for="" class="form-label"style="color:saddlebrown">Naudojami ingridientai</label>
+               <div formArrayName="ingredients">
+                <div class="mb-3" *ngFor="let ingredienControl of getIngredientsForm().controls; let i=index">
+                    <label class="form-label">Pavadinimas:</label>
+                    <input type="text" class="form-control"  placholder="Pavadinimas" [formControlName]="i" >
+                    <span class="help-block" *ngIf="reactiveForm.get('ingredient').touched && !reactiveForm.get('ingredient').valid">Laukas privalomas</span>
+                </div>
+            </div>
+                <button class="btn btn-primary" type="button" (click)="addInput()">Pridėti ingredientą</button>
+                <div class="form-floating">
+                    <textarea class="form-control" style="height: 100px" name="description" formControlName="description"></textarea>
+                    <label for="floatingTextarea2" style="color:saddlebrown">Recepto aprašymas</label>
+                    <span class="help-block" *ngIf="reactiveForm.get('description').touched && !reactiveForm.get('description').valid">Laukas privalomas</span>
+                </div>
+                <button type="submit" class="btn btn-success" [disabled]="!forma.valid">Išsiųsti</button>
+                <button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>
+            </form>
+        </div>
+    </div>
+</div>
+
