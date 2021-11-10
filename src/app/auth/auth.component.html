@@ -14,7 +14,7 @@
                 <input type="password" ngModel  name="password" class="form-control" required minlength="6">
             </div>
             <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{ isLogin?"Prisijungti ": "Registruotis "}}</button>
-            <button class="btn btn-success float-end" type="button" (click)="onSwitch()">Skaityti neprisijungus</button>
+            <button class="btn btn-success float-end" type="button" (click)="onSwitch()">{{ isLogin? "Registruotis ?":"Prisijungti ?"}}</button>
 
         </form>
         <div *ngIf="isLoading">
