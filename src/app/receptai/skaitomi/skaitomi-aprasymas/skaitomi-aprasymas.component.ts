@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Routes } from '@angular/router';
 import { ReceptaiModel } from 'src/app/models/receptaimodel.model';
 import { ReceptaiService } from 'src/app/service/receptai.service';
 
@@ -9,17 +11,18 @@ import { ReceptaiService } from 'src/app/service/receptai.service';
 })
 export class SkaitomiAprasymasComponent implements OnInit {
 
-  @Input() receptaiData;
-  constructor(private receptaiService:ReceptaiService ) { }
+  
+  constructor(private receptaiService:ReceptaiService, private route:ActivatedRoute ) { }
 
  
   public receptai:ReceptaiModel[];
+  public receptas;
 
   ngOnInit(): void {
-    // let id=this.route.snapshot.params['id'];
-    // this.receptaiService.getReceptai().subscribe((response)=>{
-    //   this.receptai=response[this.id];
-    // });
+    let id=this.route.snapshot.params['id'];
+    this.receptaiService.getReceptai().subscribe((response)=>{
+      this.receptas=response[id];
+    });
   }
 
   

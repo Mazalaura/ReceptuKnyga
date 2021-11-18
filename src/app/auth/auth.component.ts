@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NavigationService } from '../service/navigation.service';
 import { AuthResponse, AuthService } from './auth.service';
@@ -16,21 +16,30 @@ export class AuthComponent implements OnInit {
   isLoading=false;
   errorMessage=null;
 
-  constructor(private authService:AuthService, private router:Router, private navigationService: NavigationService) { }
+  constructor(private authService:AuthService, private router:Router, private navigationService: NavigationService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params)=>{
+      console.log(params.action); 
+      if(params.action == "login"){
+        this.isLogin=true;
+      }else {
+        this.isLogin=false;
+      }
+      
+    });
     this.navigationService.loginSubject.subscribe((isLogin) => {
       this.isLogin = isLogin;
   })
   }
 
   onSwitch(){
+    this.errorMessage=null;
     this.router.navigate(['recipes-read']);
   }
 
   onSubmit(authForm:NgForm){
-    this.isLoading=true;
-
+    this.isLoading=true;    
     let authObservable:Observable<AuthResponse>;
 
     if(this.isLogin){
@@ -55,8 +64,8 @@ export class AuthComponent implements OnInit {
                 case'INVALID_PASSWORD': this.errorMessage="Ivestas neteisingas slaptazodis";
                 break;
           }
-        }
-        this.isLoading=false;        
+          this.isLoading=false; 
+        }               
     });
   }
 }

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 import { NavigationService } from '../service/navigation.service';
 
 @Component({
@@ -6,26 +10,43 @@ import { NavigationService } from '../service/navigation.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
-  loginActive: boolean = true;
-  registernActive: boolean;
+export class NavigationComponent implements OnInit, OnDestroy{
+  public userSubscribtion: Subscription;
+  public isShown;
+  public loggedIn = false;
+  public user: User = null;
 
-  constructor(private navigationService: NavigationService) {}
+  constructor(private authService:AuthService, private router:Router, private navigationService: NavigationService) {}
 
   ngOnInit(): void {
-     
+     this.userSubscribtion = this.authService.userSub.subscribe((user:User)=>{
+       if(user != null){
+         this.loggedIn=true;
+         this.user=user;
+       } else {
+         this.loggedIn=false;
+         this.user=null;
+       }
+       this.loggedIn=true;
+       this.user=user;
+     });
   }
 
-  onClickLogin() {
-    this.registernActive = false;
+  ngOnDestroy():void{
+    this.userSubscribtion.unsubscribe()
+  }
+
+  onClickLogin(){
     this.navigationService.loginSubject.next(true);
-    this.loginActive = true;
   }
 
   onClickRegister() {
-    this.loginActive = false;
     this.navigationService.loginSubject.next(false);
-    this.registernActive = true;
+  }
+
+  onLoginLogout() {
+    console.log("logout");
+    
   }
 
 }

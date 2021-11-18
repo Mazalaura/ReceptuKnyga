@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from 'src/app/models/receptaimodel.model';
 import {ReceptaiService} from 'src/app/service/receptai.service'
 
@@ -13,12 +14,13 @@ export class RasomiComponent implements OnInit {
 
  reactiveForm:FormGroup;
 
-  constructor(private receptaiService:ReceptaiService) { }
+  constructor(private receptaiService:ReceptaiService, private fb:FormBuilder, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.reactiveForm=new FormGroup({
       name:new FormControl(null, [Validators.required]),
       description:new FormControl(null, Validators.required),
+      url: new FormControl('', [Validators.required]),
       ingredients:new FormArray([])
     });
   }
@@ -31,7 +33,8 @@ export class RasomiComponent implements OnInit {
     });
     this.receptaiService.postReceptai(
       this.reactiveForm.value.name,
-      this.reactiveForm.value.description,      
+      this.reactiveForm.value.description,  
+      this.reactiveForm.value.url,    
       ingredients
     )
       .subscribe((response)=>{

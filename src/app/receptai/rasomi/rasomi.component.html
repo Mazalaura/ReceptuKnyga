@@ -22,6 +22,11 @@
                     <label for="floatingTextarea2" style="color:saddlebrown">Recepto aprašymas</label>
                     <span class="help-block" *ngIf="reactiveForm.get('description').touched && !reactiveForm.get('description').valid">Laukas privalomas</span>
                 </div>
+                <div class="mb-3">
+                    <label for="" class="form-label mt-3">Paveiksliuko URL</label>
+                    <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required formControlName="url" class="form-control">
+                    <!-- <span class="help-block" *ngIf="url.invald">Netinkama nuotrauka</span> -->
+                </div>
                 <button type="submit" class="btn btn-success" [disabled]="!forma.valid">Išsiųsti</button>
                 <button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>
             </form>

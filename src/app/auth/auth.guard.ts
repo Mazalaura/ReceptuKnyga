@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route:ActivatedRouteSnapshot, router:RouterStateSnapshot):boolean|UrlTree{
         if(this.authService.user!=undefined) return true;
-        return this.router.createUrlTree(['/auth']);
+        return this.router.createUrlTree(['/auth', 'login']);
     }
 
 

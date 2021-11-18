@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ReceptaiModel } from 'src/app/models/receptaimodel.model';
+import { NavigationService } from 'src/app/service/navigation.service';
 import {ReceptaiService} from 'src/app/service/receptai.service';
 
 @Component({
@@ -8,14 +10,27 @@ import {ReceptaiService} from 'src/app/service/receptai.service';
   styleUrls: ['./skaitomi.component.css']
 })
 export class SkaitomiComponent implements OnInit {
+  public loggedIn=this.authService.user;
+  public currentEmail=this.authService.user.email;
+  
+
+  public adminLoggedIn:boolean;
+
 
   public receptai:ReceptaiModel[];
 
-  constructor(private receptaiService:ReceptaiService) { }
+  constructor(private receptaiService:ReceptaiService, private navigationService: NavigationService, private authService:AuthService) { }
 
   ngOnInit(): void {
-    this.receptaiService.getReceptai().subscribe((response)=>{
-      this.receptai=response;
+    this.adminLoggedIn=this.authService.isAdmin;
+    // if(this.currentEmail == this.adminEmail){
+    //   this.adminLoggedIn=true;
+    // }
+    this.receptaiService.getReceptai().subscribe((receptai)=>{
+      this.receptai=receptai;
     });
+  }
+  onDeleteRecipe(id:string){
+    
   }
 }

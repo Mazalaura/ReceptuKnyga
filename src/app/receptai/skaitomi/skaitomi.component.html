@@ -2,29 +2,9 @@
     <div class="offset-md-3 col-md-8">
         <div class="card mt-5" style="color:darkolivegreen"><h3><i class="bi bi-card-list"></i>RECEPTŲ SĄRAŠAS</h3></div>
         <div class="card-body">
-            <div class="accordion" id="acordionExampe" *ngFor="let receptas of receptai">
-                <div class="accordion-item mb-2">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#'+receptas" aria-expanded="true" aria-controls="{{receptas.id}}">
-                            {{ receptas.name }}
-                        </button>
-                    </h2>
-                    <div id="{{receptas.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul class="list-unstyled">
-                                <li><strong><i><u>Aprašymas:</u></i></strong></li>
-                                <li>{{receptas.description}}</li>
-                                <li><strong><i><u>Ingredientai:</u></i></strong>
-                                    <ul>
-                                        <li *ngFor="let ingredient of receptas.ingredients">{{ingredient.name}}</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>  
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action" *ngFor="let receptas of receptai; let i=index" [routerLink]="['skaitomi-aprasymas',i]">{{ receptas.name }}</a>
+            </div> 
             <button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>        
         </div>
     </div>

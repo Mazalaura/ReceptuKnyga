@@ -27,8 +27,8 @@ export class ReceptaiService {
   
   }
 
-  postReceptai(name:string, description:string, ingredients:Ingredient[]){
-    const  receptai=new ReceptaiModel(name, description, this.authService.user.email,this.authService.user.id, ingredients);
+  postReceptai(name:string, description:string, url:'', ingredients:Ingredient[]){
+    const  receptai=new ReceptaiModel(name, description, this.authService.user.email,this.authService.user.id, url, ingredients);
     return this.http.post<{name:string}>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages.json", receptai,
     {
       params:new HttpParams().set('auth', this.authService.user.token)

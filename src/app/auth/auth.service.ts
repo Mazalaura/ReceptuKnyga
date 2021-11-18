@@ -20,7 +20,9 @@ export interface AuthResponse {
 export class AuthService {
 
     public user:User;
+    public adminEmail="mazalaura@gmail.com";
     public userSub=new BehaviorSubject<User>(null);
+    public isAdmin=false;
 
     constructor(private http:HttpClient, private router:Router) {}
 
@@ -31,6 +33,10 @@ export class AuthService {
             response.idToken,
             new Date(new Date().getTime()+ +response.expiresIn*1000)
         );
+        if (this.user.email == this.adminEmail)
+        this.isAdmin=true;
+        else
+        this.isAdmin=false;
         this.userSub.next(this.user);
         localStorage.setItem('user', JSON.stringify(this.user));
     }
@@ -70,6 +76,6 @@ export class AuthService {
         this.user=null;
         this.userSub.next(null);
         localStorage.removeItem('user');
-        this.router.navigate(['/auth']);
+        this.router.navigate(['/auth', 'login']);
     }
 }

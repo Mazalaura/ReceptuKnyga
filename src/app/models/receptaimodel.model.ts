@@ -1,9 +1,10 @@
 export class ReceptaiModel{
-    constructor(
+    constructor(        
         public name:string,
         public description:string,        
         public useremail:string,
         public userid:string,     
+        public url?: '',
         public ingredients?:Ingredient[],
         public id?:string
     ){

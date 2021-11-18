@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { identifierModuleUrl } from "@angular/compiler";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -12,9 +11,9 @@ import { SkaitomiComponent } from "../receptai/skaitomi/skaitomi.component";
 
 const appRoutes:Routes=[
     {
-        path:'auth',
-        component:AuthComponent
-    },
+      path:'auth/:action',
+      component:AuthComponent
+  },
     {
       path: '',
       component:DashboardComponent,
@@ -38,10 +37,7 @@ const appRoutes:Routes=[
 
 @NgModule({
     declarations: [],
-    imports: [
-      CommonModule,
-      RouterModule.forRoot(appRoutes)
-    ],
+    imports: [RouterModule.forRoot(appRoutes, {onSameUrlNavigation:'reload'})],
     exports: [RouterModule]
   })
   export class AppRoutingModule { }
