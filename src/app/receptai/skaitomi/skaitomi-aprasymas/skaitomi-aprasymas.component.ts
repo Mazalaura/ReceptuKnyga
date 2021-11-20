@@ -20,8 +20,8 @@ export class SkaitomiAprasymasComponent implements OnInit {
 
   ngOnInit(): void {
     let id=this.route.snapshot.params['id'];
-    this.receptaiService.getReceptai().subscribe((response)=>{
-      this.receptas=response[id];
+    this.receptaiService.getReceptai().subscribe((receptai)=>{
+      this.receptai=receptai;
     });
   }
 

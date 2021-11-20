@@ -4,19 +4,16 @@
     {{receptas.url}}
     </div>
     <div class="card-body">
-      <!-- <div id="{{receptas.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+      <div id="{{receptas.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
         data-bs-parent="#accordionExample">
         <div class="accordion-body">
           <ul class="list-unstyled">
-            <li><strong><i><u>Aprašymas:</u></i></strong></li>
-            <li>{{receptas.description}}</li>
-            <li><strong><i><u>Ingredientai:</u></i></strong>
-              <ul>
-                <li *ngFor="let ingredient of receptas.ingredients">{{ingredient.name}}</li>
-              </ul>
-            </li>
+            <strong><i><u>Aprašymas:</u></i></strong>
+            {{receptas.description}}<br>
+            <strong><i><u>Ingredientai:</u></i></strong>
+                <li *ngFor="let ingredient of receptas.ingredients">{{ingredient.name}}
           </ul>
-        </div> -->
+        </div>
         <button [routerLink]="['/skaitomi']" type="button" class="btn btn-secondary mt-3 float-end">Atgal</button>
       <!-- </div> -->
     </div>
