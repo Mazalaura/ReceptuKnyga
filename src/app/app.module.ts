@@ -9,9 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RasomiComponent } from './receptai/rasomi/rasomi.component';
 import { SkaitomiComponent } from './receptai/skaitomi/skaitomi.component';
-import { SkaitomiAprasymasComponent } from './receptai/skaitomi/skaitomi-aprasymas/skaitomi-aprasymas.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { AddIngredientComponent } from './receptai/rasomi/add-ingredient/add-ingredient.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -21,9 +20,8 @@ import { AddIngredientComponent } from './receptai/rasomi/add-ingredient/add-ing
     DashboardComponent,
     RasomiComponent,
     SkaitomiComponent,
-    SkaitomiAprasymasComponent,
     NavigationComponent,
-    AddIngredientComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

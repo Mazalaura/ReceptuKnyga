@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Subject } from "rxjs";
 import {tap} from 'rxjs/operators'
-import { User } from "./user.model";
+import { User } from '../auth/user.model';
 
 export interface AuthResponse {
   idToken: string; //  A Firebase Auth ID token for the authenticated user.
@@ -21,8 +21,9 @@ export class AuthService {
 
     public user:User;
     public adminEmail="mazalaura@gmail.com";
-    public userSub=new BehaviorSubject<User>(null);
+    public userSub = new Subject<User>();
     public isAdmin=false;
+    // public userSub = new BehaviorSubject<User>(null);
 
     constructor(private http:HttpClient, private router:Router) {}
 
@@ -70,6 +71,13 @@ export class AuthService {
         this.user=new User(user.email, user.id, user.token, new Date(user.expires));
         this.userSub.next(this.user);
         this.router.navigate(['/']);
+    }
+
+    reloadCurrentRoute() {
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
     }
 
     logout(){

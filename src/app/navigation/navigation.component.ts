@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../service/auth.service';
 import { User } from '../auth/user.model';
 import { NavigationService } from '../service/navigation.service';
 
@@ -36,6 +36,13 @@ export class NavigationComponent implements OnInit, OnDestroy{
     this.userSubscribtion.unsubscribe()
   }
 
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
   onClickLogin(){
     this.navigationService.loginSubject.next(true);
   }
@@ -46,7 +53,14 @@ export class NavigationComponent implements OnInit, OnDestroy{
 
   onLoginLogout() {
     console.log("logout");
-    
+    if (this.loggedIn == true) {
+      this.authService.logout();
+    } else {
+      this.router.navigate(['/auth'])
+    }
+    this.navigationService.loginSubject.next(true);
+
+    this.authService.reloadCurrentRoute();
   }
 
 }

@@ -1,13 +1,11 @@
-import { identifierModuleUrl } from "@angular/compiler";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "../auth/auth.component";
 import { AuthGuard } from "../auth/auth.guard";
 import { DashboardComponent } from "../dashboard/dashboard.component";
 import { RasomiComponent } from "../receptai/rasomi/rasomi.component";
-import { SkaitomiAprasymasComponent } from "../receptai/skaitomi/skaitomi-aprasymas/skaitomi-aprasymas.component";
 import { SkaitomiComponent } from "../receptai/skaitomi/skaitomi.component";
-
+import { AuthService } from "../service/auth.service";
 
 const appRoutes:Routes=[
     {
@@ -24,8 +22,8 @@ const appRoutes:Routes=[
       component:SkaitomiComponent
     },
     {
-      path: 'skaitomi-aprasymas',
-      component:SkaitomiAprasymasComponent
+      path: 'dashboard', component: DashboardComponent,
+      canActivate: [AuthGuard]
     },
     {
       path:'rasomi',

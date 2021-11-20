@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
 import { ReceptaiModel } from 'src/app/models/receptaimodel.model';
 import { NavigationService } from 'src/app/service/navigation.service';
 import {ReceptaiService} from 'src/app/service/receptai.service';
@@ -31,6 +31,11 @@ export class SkaitomiComponent implements OnInit {
     });
   }
   onDeleteRecipe(id:string){
-    
+    console.log(id);
+
+    this.receptaiService.deleteReceptai(id).subscribe((response) => {
+
+      this.ngOnInit();
+    })
   }
 }

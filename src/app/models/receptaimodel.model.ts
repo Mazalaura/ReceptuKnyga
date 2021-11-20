@@ -1,18 +1,12 @@
+import { FormGroup } from "@angular/forms";
+
 export class ReceptaiModel{
     constructor(        
-        public name:string,
-        public description:string,        
-        public useremail:string,
-        public userid:string,     
-        public url?: '',
-        public ingredients?:Ingredient[],
-        public id?:string
+        public email: string,
+        public uid: string,
+        public recipeForm: FormGroup,
+        public id?: string
     ){
 
     }
-}
-export class Ingredient {
-    constructor(
-        public name:string
-    ){}
 }

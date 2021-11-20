@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NavigationService } from '../service/navigation.service';
-import { AuthResponse, AuthService } from './auth.service';
+import { AuthResponse, AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
-      console.log(params.action); 
+      console.log(params); 
       if(params.action == "login"){
         this.isLogin=true;
       }else {
@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
 
   onSwitch(){
     this.errorMessage=null;
-    this.router.navigate(['recipes-read']);
+    this.isLogin = !this.isLogin;
   }
 
   onSubmit(authForm:NgForm){

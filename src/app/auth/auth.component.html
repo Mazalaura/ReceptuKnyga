@@ -1,22 +1,28 @@
-<div class="col-md-3 mx-auto">
-    <div class="card mt-5">
+<div class="col-md-8 mx-auto mt-5">
+    <h3> {{ isLogin? "Prisijunkite" : "Registruokitės" }}</h3>
+    <div class="card mt-4">
         <div class="card-header">{{ isLogin?"Prisijunkite": "Registruokitės"}}</div>
-        <div class="alert alert-danger" *ngIf="errorMessage">
-            {{errorMessage}}
-        </div>
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
-            <div class="form-group mb-3">
-                <label for="" class="form-label">El. pašto adresas:</label>
-                <input type="email" ngModel name="email" class="form-control" required email>
+        <div class="card-body">
+            <div class="alert alert-danger" *ngIf="errorMessage">
+                {{errorMessage}}
             </div>
-            <div class="form-group mb-3">
-                <label for="" class="form-label">Slaptažodis</label>
-                <input type="password" ngModel  name="password" class="form-control" required minlength="6">
-            </div>
-            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{ isLogin?"Prisijungti ": "Registruotis "}}</button>
-            <button class="btn btn-success float-end" type="button" (click)="onSwitch()">{{ isLogin? "Registruotis ?":"Prisijungti ?"}}</button>
-
-        </form>
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+                <div class="form-group mb-3">
+                    <label for="" class="form-label">El. pašto adresas:</label>
+                    <input type="email" ngModel name="email" class="form-control" required email>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="" class="form-label">Slaptažodis</label>
+                    <input type="password" ngModel  name="password" class="form-control" required minlength="6">
+                </div>
+                <div class="form-group mb-3" *ngIf="!isLogin">
+                    <label for="" class="form-label">Pakartoti slaptažodį</label>
+                    <input type="password" ngModel name="passwordRepeat" class="form-control" required minlength="6"/>
+                </div>                           
+                <button class="btn btn-dark float-start" type="submit" [disabled]="!authForm.valid">
+                    {{ isLogin? "Prisijungti ": "Registruotis "}}
+                </button>
+            </form>
         <div *ngIf="isLoading">
             <h4>Loading... </h4>
         </div>

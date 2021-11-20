@@ -1,33 +1,56 @@
-<div class="col-md-6 mx-auto">
-    <div class="card mt-5">
+<div class="mx-auto">
+    <h3 class="mt-5">Talpinami receptai</h3>
+    <div class="card mt-3">
         <div class="card-header" style="color:midnightblue"><h3>Pridėti naują receptą</h3></div>
         <div class="card-body">
-            <form [formGroup]="reactiveForm" (ngSubmit)="onPostReceptai(forma)" #forma="ngForm">
+            <form [formGroup]="receptaiForm">
                 <div class="mb-3">
                     <label for="" class="form-label" style="color:saddlebrown" >Recepto pavadinimas</label>
-                    <input type="text" class="form-control" placholder="Įrašykite recepto pavadinimą" ngModel name="name" formControlName="name">
-                    <span class="help-block" *ngIf="reactiveForm.get('name').touched && !reactiveForm.get('name').valid">Laukas privalomas</span>
+                    <input class="form-control" placholder="Įrašykite recepto pavadinimą" formControlName="receptasName">
+                    <span  *ngIf="receptasName.invalid && receptasName.touched ">Laukas privalomas</span>
                 </div>
-                <label for="" class="form-label"style="color:saddlebrown">Naudojami ingridientai</label>
-               <div formArrayName="ingredients">
-                <div class="mb-3" *ngFor="let ingredienControl of getIngredientsForm().controls; let i=index">
-                    <label class="form-label">Pavadinimas:</label>
-                    <input type="text" class="form-control"  placholder="Pavadinimas" [formControlName]="i" >
-                    <span class="help-block" *ngIf="reactiveForm.get('ingredient').touched && !reactiveForm.get('ingredient').valid">Laukas privalomas</span>
-                </div>
-            </div>
-                <button class="btn btn-primary" type="button" (click)="addInput()">Pridėti ingredientą</button>
-                <div class="form-floating">
-                    <textarea class="form-control" style="height: 100px" name="description" formControlName="description"></textarea>
-                    <label for="floatingTextarea2" style="color:saddlebrown">Recepto aprašymas</label>
-                    <span class="help-block" *ngIf="reactiveForm.get('description').touched && !reactiveForm.get('description').valid">Laukas privalomas</span>
+                <div class="d-flex">
+                    <!-- <div class="mb-3 w-50 " style="padding-right: 8px;">
+                        <label for="" class="form-label">Paruošimo laikas</label>
+                        <input formControlName="receptasPrepTime" class="form-control timepicker" type="time">
+                        <span *ngIf="receptasPrepTime.invalid && receptasPrepTime.touched">
+                            Laukas privalomas
+                        </span>
+                    </div> -->
+                    <!-- <div class="mb-3 w-50" style="padding-left: 8px;">
+                        <label for="" class="form-label">Kepimo laikas</label>
+                        <input  formControlName="receptasCookTime" class="form-control timepicker" type="time">
+                        <span *ngIf="receptasCookTime.invalid && receptasCookTime.touched">
+                        Laukas privalomas
+                        </span>
+                    </div> -->
                 </div>
                 <div class="mb-3">
-                    <label for="" class="form-label mt-3">Paveiksliuko URL</label>
-                    <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required formControlName="url" class="form-control">
-                    <!-- <span class="help-block" *ngIf="url.invald">Netinkama nuotrauka</span> -->
+                    <label for="" class="form-label" style="color:saddlebrown">Recepto aprašymas</label>
+                    <textarea class="form-control" style="height: 100px" formControlName="receptasText" rows="6"></textarea>
+                    <span *ngIf="receptasText.invalid && receptasText.touched">Laukas privalomas</span>
                 </div>
-                <button type="submit" class="btn btn-success" [disabled]="!forma.valid">Išsiųsti</button>
+                <div class="mb-3">
+                    <label for="" class="form-label mt-3">Nuotrauka</label>
+                    <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30"
+                    required formControlName="receptasImg"  class="form-control">
+                    <span *ngIf="receptasImg.invalid && receptasImg.touched">
+                        Netinkamas formatas 
+                    </span>
+                </div>
+                <div formArrayName="ingredients">
+                    <label for="" class="form-label mt-3 d-inline-block">Ingridientai</label>
+                    <div class="d-flex my-2" *ngFor="let ingredient of ingredientForms.controls; let i=index" [formGroupName]="i">
+                        <input class="form-control mt-1" formControlName="ingredient" placeholder="ingredient">
+                        <input class="form-control  w-50 mt-1 mx-3"  formControlName="amount"  type="number" placeholder="amount">
+                        <input class="form-control w-25 mt-1"  formControlName="units" placeholder="units">
+                        <button style="margin-left: 16px;" class="btn btn-dark mt-1" (click)="deleteIngredient(i)">Ištrinti</button>
+                    </div>
+                    <br>
+                    <button class="btn btn-outline-dark" (click)="addIngredient()">+ Pridėti ingridientą</button>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success"  (click)="onPostReceptai(receptaiForm)" [disabled]="!receptaiForm.invalid">Patalpinti</button>
                 <button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>
             </form>
         </div>

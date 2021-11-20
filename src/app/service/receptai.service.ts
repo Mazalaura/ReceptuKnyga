@@ -1,15 +1,50 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
-import { Ingredient, ReceptaiModel } from '../models/receptaimodel.model';
+import { AuthService } from './auth.service';
+import { ReceptaiModel } from '../models/receptaimodel.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReceptaiService {
 
-  constructor(private authService:AuthService, private http:HttpClient) { }
+  recipeForm: FormGroup;
+  status = "";
+  myForm: FormGroup;
+  loading = false;
+  success = false;
+
+  constructor(private authService:AuthService, private http:HttpClient, private fb:FormBuilder) { }
+
+  ngOnInit(): void {
+
+    this.recipeForm = this.fb.group({
+      receptasName: ['', [
+        Validators.required
+      ]],
+      receptasText: ['', [
+        Validators.required
+      ]],
+
+      receptasPrepTime: ['', [
+        Validators.required
+      ]],
+      receptasCookTime: ['', [
+        Validators.required
+      ]],
+      receptasImg: ['', [
+        Validators.required
+      ]],
+      postDate: [''],
+      ingredients: this.fb.array([])
+    })
+
+    this.recipeForm.statusChanges.subscribe((status) => {
+      this.status = status;
+    })
+  }
 
   getReceptai(){
     return this.http.get<{[key:string]:ReceptaiModel}>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
@@ -19,7 +54,7 @@ export class ReceptaiService {
       receptai.push({...responseData[key], id:key});
       }
       return receptai;
-    }));
+    }))
   }
 
   getReceptas(id:string){
@@ -27,8 +62,8 @@ export class ReceptaiService {
   
   }
 
-  postReceptai(name:string, description:string, url:'', ingredients:Ingredient[]){
-    const  receptai=new ReceptaiModel(name, description, this.authService.user.email,this.authService.user.id, url, ingredients);
+  postReceptai(recipeForm: FormGroup){
+    const receptai = new ReceptaiModel(this.authService.user.email, this.authService.user.id, recipeForm);
     return this.http.post<{name:string}>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages.json", receptai,
     {
       params:new HttpParams().set('auth', this.authService.user.token)
@@ -38,7 +73,7 @@ export class ReceptaiService {
 
   deleteReceptai(id:string){
     
-    return this.http.post<{name:string}>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages/"+id+".json", 
+    return this.http.delete("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages/"+id+".json", 
     {
       params:new HttpParams().set('auth', this.authService.user.token)
     }

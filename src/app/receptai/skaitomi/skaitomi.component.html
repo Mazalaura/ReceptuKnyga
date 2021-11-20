@@ -1,11 +1,96 @@
-<div class="row mt-3">
-    <div class="offset-md-3 col-md-8">
-        <div class="card mt-5" style="color:darkolivegreen"><h3><i class="bi bi-card-list"></i>RECEPTŲ SĄRAŠAS</h3></div>
-        <div class="card-body">
-            <div class="list-group">
-                <a class="list-group-item list-group-item-action" *ngFor="let receptas of receptai; let i=index" [routerLink]="['skaitomi-aprasymas',i]">{{ receptas.name }}</a>
-            </div> 
-            <button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>        
-        </div>
+<div class="card mt-5" style="color:darkolivegreen"><h3><i class="bi bi-card-list"></i>RECEPTŲ SĄRAŠAS</h3></div>
+<div>
+<button [routerLink]="['/']" class="btn btn-secondary mt-3 float-end" type="button">Atgal</button>        
+</div>
+<div class="row mt-3" *ngFor="let receptas of receptai">    
+    <img class="card-img-top" src="{{ receptai.receptaiForm.receptasImg }}" alt="{{ receptai.receptaiForm.receptasName }}" (click)="onc()"/>    
+    <div class="card-body" style="padding-bottom: 6px">
+        <h2 style="margin-bottom: 2px; letter-spacing: 1px; font-size: 60px" class="card-title text-uppercase text-center mt-2 text-wrap">
+      <b style="font-weight: 800">{{ receptas.receptaiForm.receptasName }}
+        console.log(receptai.receptaiForm.receptasName);
+    </b>
+    </h2>
+    <div class="text-center mt-1 mb-4">
+      <p style="margin-bottom: 0px" class="">
+        <small class="text-muted"
+          >Posted by {{ receptas.email }}, <i> {{ receptas.uid }}</i></small>
+      </p>
     </div>
+    <!-- <div class="d-flex justify-content-around timing bg-dark text-white">
+        <p style="margin-bottom: 0px" class="mx-2">
+          <small style="letter-spacing: 2px"> PREPARATION TIME: </small>
+          <b> {{ receptas.receptaiForm.receptasPrepTime }}</b>
+        </p>
+  
+        <p style="margin-bottom: 0px" class="mx-2">
+          <small style="letter-spacing: 2px">COOKING TIME: </small>
+          <b> {{ receptas.receptaiForm.receptasCookTime }}</b>
+        </p>
+      </div> -->
+      <table class="table table-hover mt-4 mb-4">
+        <thead>
+          <tr>
+            <th scope="col" style="padding-bottom: 0">
+              <h4><b>Ingridientai</b></h4>
+            </th>
+            <th scope="col"><small>Kiekis</small></th>
+            <th scope="col"><small>Vienatai</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of receptas.receptaiForm.ingredients">
+            <td class="text-uppercase font-weight-normal">
+              <small>{{ ingredient.ingredient }}</small>
+            </td>
+            <td>
+              <small>{{ ingredient.amount }}</small>
+            </td>
+            <td>
+              <small>{{ ingredient.units }}</small>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="5" style="padding-bottom: 0">
+              <h4><b>Aprašymas</b></h4>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5">
+              <p
+                class="card-text my-3"
+                style="white-space: pre-wrap; text-align: justify"
+              >
+                {{ receptai.receptaiForm.receptasText }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="text-start">
+        <p style="margin-bottom: 0px; line-height: 18px" class="mx-4">
+          <small class="text-muted"
+            >Patalpinimo data:<br />
+            <i> {{ receptai.receptaiForm.postDate }}</i></small
+          >
+        </p>
+      </div>
+  
+      <button
+        class="btn btn-outline-dark mt-1 col-3 mb-4 mx-3"
+        [disabled]="!adminLoggedIn"
+        (click)="onDeleteReceptai(receptas.id)"
+      >
+        Ištrinti
+      </button>
+    </div>
+
 </div>

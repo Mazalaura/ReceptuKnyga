@@ -1,29 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"(mouseup)="isShown = !isShown">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" routerLink="/auth" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <svg style="height: 40px; margin-right:12px; margin-bottom:8px" aria-hidden="true" focusable="far" data-prefix="far" data-icon="book" role="img" xmlns="http://www.w3.org/200/svg"></svg> 
         <b><i><i class="bi bi-journal-richtext">
         </i>MĖGSTAMI RECEPTAI</i></b>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"(click)="isShown=!isShown">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <button class="navbar-toggler mt-2 float-end" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
       <div class="collapse navbar-collapse float-lg-end text-sm-center mx-center" [ngClass]="{show:isShown}">
-        <ul class="navbar-nav ml-2 mb-5 mb-lg-1 mt-lg-0 mx-lg-0 px-1" (click)="isShown=!isShown">
-          <li class="nav-item my-2 active">
-            <a href="" class="nav-link nav-link-action" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['skaitomi']" >Skaityti receptus</a>
+        <ul class="navbar-nav mt-2 mb-5 mb-lg-1 mt-lg-0 mx-lg-0 px-1 mx-auto float-clear">
+          <li class="nav-item my-2" *ngIf="loggedIn">
+            <a href="skaitomi" class="nav-link nav-link-action" [routerLink]="['skaitomi']" >Skaityti receptus</a>
           </li>
           <li class="nav-item my-2" *ngIf="loggedIn">
-            <a href="" class="nav-link nav-link-action" [routerLink]="['rasomi']" *ngIf="loggedIn">Įkelti receptą</a>
+            <a href="" class="nav-link nav-link-action" [routerLink]="['rasomi']">Įkelti receptą</a>
           </li>
-          <li class="nav-item my-2" *ngIf="loggedIn">
-            <a href="" class="btn btn-outline-secondary mx-2" *ngIf="loggedIn" (click)="onLoginLogout()">Atsijungti</a>
+          <li class="nav-item my-2 active" *ngIf="loggedIn">
+            <a href="" style="margin-right: 5px"class="nav-link nav-link-action mx-sm-auto" [routerLink]="['dashboard']" id="dashboardLink">
+              <svg style="height: 18px; padding-bottom: 3px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa">
+                <path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
+                  class=""></path>
+              </svg>
+              {{ user.email }}
+            </a>
+          </li>
+          <li id="specialLiElement" class="nav-item my-2" *ngIf="loggedIn">
+            <a href="" class="btn btn-outline-secondary mx-2" (click)="onLoginLogout()">Atsijungti</a>
           </li>
           <li class="nav-item my-2" *ngIf="loggedIn">
             <a [routerLink]="['auth', 'login']" class="btn btn-outline-light mx-2" (click)="onClickLogin()">Prisijungti</a>
           </li>
-          <li class="nav-item my-2" *ngIf="loggedIn">
+          <li class="nav-item my-2" *ngIf="!loggedIn">
             <a [routerLink]="['auth', 'subscribe']" class="btn btn-light mx-2" (click)="onClickRegister()">Registruotis</a>
           </li>
         </ul>

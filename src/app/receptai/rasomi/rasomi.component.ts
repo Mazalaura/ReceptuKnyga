@@ -1,54 +1,99 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Ingredient } from 'src/app/models/receptaimodel.model';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import {ReceptaiService} from 'src/app/service/receptai.service'
 
 
 @Component({
   selector: 'app-rasomi',
   templateUrl: './rasomi.component.html',
-  styleUrls: ['./rasomi.component.css']
+  styleUrls: ['./rasomi.component.css'],
+  providers: [DatePipe],
 })
 export class RasomiComponent implements OnInit {
 
- reactiveForm:FormGroup;
+ receptaiForm:FormGroup;
+ public postDate: any = new Date();
 
-  constructor(private receptaiService:ReceptaiService, private fb:FormBuilder, private route:ActivatedRoute) { }
+  constructor(private receptaiService:ReceptaiService, private fb:FormBuilder, private datePipe:DatePipe) {
+    this.postDate = this.datePipe.transform(this.postDate, "short");
+   }
 
   ngOnInit(): void {
-    this.reactiveForm=new FormGroup({
-      name:new FormControl(null, [Validators.required]),
-      description:new FormControl(null, Validators.required),
-      url: new FormControl('', [Validators.required]),
-      ingredients:new FormArray([])
+    this.receptaiForm=this.fb.group({
+      receptasName: ['', [
+        Validators.required
+      ]],
+      receptasText: ['', [
+        Validators.required
+      ]],
+
+      receptasPrepTime: ['', [
+        Validators.required
+      ]],
+      receptasCookTime: ['', [
+        Validators.required
+      ]],
+      receptasImg: ['', [
+        Validators.required
+      ]],
+      postDate: this.postDate,
+      ingredients: this.fb.array([])
     });
+    
   }
 
-  onPostReceptai(forma:NgForm){
-    console.log(this.reactiveForm.value);   
-    const ingredients:Ingredient[]=[];
-    this.reactiveForm.value.ingredients.forEach((name:string)=>{
-      ingredients.push(new Ingredient(name));
-    });
-    this.receptaiService.postReceptai(
-      this.reactiveForm.value.name,
-      this.reactiveForm.value.description,  
-      this.reactiveForm.value.url,    
-      ingredients
-    )
-      .subscribe((response)=>{
+  get ingredientForms(){
+    return this.receptaiForm.get('ingredients') as FormArray;
+  }
+
+  addIngredient() {
+
+    const ingredient = this.fb.group({
+      ingredient: ['', [
+        Validators.required
+      ]],
+      amount: ['', [
+        Validators.required
+      ]],
+      units: ['', [
+        Validators.required
+      ]],
+    })
+
+    this.ingredientForms.push(ingredient);
+  }
+
+  deleteIngredient(i) {
+    this.ingredientForms.removeAt(i)
+  }
+
+  onPostReceptai(receptaiForm: FormGroup){
+    console.log(receptaiForm);   
+    this.receptaiService.postReceptai(receptaiForm.value).subscribe((response)=>{
         console.log(response);        
-        this.reactiveForm.reset();
+        receptaiForm.reset();
       });
     }
 
-    getIngredientsForm(){
-      return this.reactiveForm.get('ingredients') as FormArray;
+    get receptasName() {
+      return this.receptaiForm.get('receptasName');
     }
-
-    addInput(){
-      const input=new FormControl();
-      this.getIngredientsForm().push(input);
+  
+    get receptasText() {
+      return this.receptaiForm.get('receptasText');
+    }
+  
+    get receptasPrepTime() {
+      return this.receptaiForm.get('receptasPrepTime');
+    }
+    get receptasCookTime() {
+      return this.receptaiForm.get('receptasCookTime');
+    }
+    get ingredients() {
+      return this.receptaiForm.get('ingredients');
+    }
+    get receptasImg() {
+      return this.receptaiForm.get('receptasImg');
     }
 }
