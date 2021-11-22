@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light"(mouseup)="isShown = !isShown">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#" routerLink="/auth" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <svg style="height: 40px; margin-right:12px; margin-bottom:8px" aria-hidden="true" focusable="far" data-prefix="far" data-icon="book" role="img" xmlns="http://www.w3.org/200/svg"></svg> 
+    <div class="container col-lg-8 col-md-2">
+      <a class="navbar-brand col-md-2" href="javascript:void(0);" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <svg style="height: 40px; margin-right:12px; margin-bottom:8px" aria-hidden="true" focusable="false" data-prefix="far" data-icon="book" role="img" xmlns="http://www.w3.org/200/svg" viewBox="0 0 448 512" class="svg-inline--fa"></svg> 
         <b><i><i class="bi bi-journal-richtext">
         </i>MĖGSTAMI RECEPTAI</i></b>
       </a>
       <button class="navbar-toggler mt-2 float-end" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-      <div class="collapse navbar-collapse float-lg-end text-sm-center mx-center" [ngClass]="{show:isShown}">
+      <div class="collapse navbar-collapse float-lg-end text-sm-center mx-auto" [ngClass]="{show:isShown}">
         <ul class="navbar-nav mt-2 mb-5 mb-lg-1 mt-lg-0 mx-lg-0 px-1 mx-auto float-clear">
           <li class="nav-item my-2" *ngIf="loggedIn">
             <a href="skaitomi" class="nav-link nav-link-action" [routerLink]="['skaitomi']" >Skaityti receptus</a>
@@ -26,10 +26,10 @@
               {{ user.email }}
             </a>
           </li>
-          <li id="specialLiElement" class="nav-item my-2" *ngIf="loggedIn">
-            <a href="" class="btn btn-outline-secondary mx-2" (click)="onLoginLogout()">Atsijungti</a>
+          <li id="specialLiElement" class="nav-item my-2 float-end" *ngIf="loggedIn">
+            <a href="" class="btn btn-outline-secondary my-2 " (click)="onLoginLogout()">Atsijungti</a>
           </li>
-          <li class="nav-item my-2" *ngIf="loggedIn">
+          <li class="nav-item my-2" *ngIf="!loggedIn">
             <a [routerLink]="['auth', 'login']" class="btn btn-outline-light mx-2" (click)="onClickLogin()">Prisijungti</a>
           </li>
           <li class="nav-item my-2" *ngIf="!loggedIn">

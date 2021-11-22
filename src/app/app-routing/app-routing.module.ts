@@ -18,12 +18,12 @@ const appRoutes:Routes=[
       canActivate:[AuthGuard]
     },
     {
-      path: 'skaitomi',
-      component:SkaitomiComponent
-    },
-    {
       path: 'dashboard', component: DashboardComponent,
       canActivate: [AuthGuard]
+    },
+    {
+      path: 'skaitomi',
+      component:SkaitomiComponent
     },
     {
       path:'rasomi',

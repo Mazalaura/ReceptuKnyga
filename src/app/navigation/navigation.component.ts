@@ -11,8 +11,11 @@ import { NavigationService } from '../service/navigation.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit, OnDestroy{
+
+  isShown: boolean=false;
+
   public userSubscribtion: Subscription;
-  public isShown;
+  
   public loggedIn = false;
   public user: User = null;
 
@@ -41,6 +44,10 @@ export class NavigationComponent implements OnInit, OnDestroy{
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
+  }
+
+  onClk() {
+    console.log(this.loggedIn, "LOGGED?");
   }
 
   onClickLogin(){

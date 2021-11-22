@@ -10,7 +10,7 @@ import { ReceptaiModel } from '../models/receptaimodel.model';
 })
 export class ReceptaiService {
 
-  recipeForm: FormGroup;
+  receptaiForm: FormGroup;
   status = "";
   myForm: FormGroup;
   loading = false;
@@ -20,7 +20,7 @@ export class ReceptaiService {
 
   ngOnInit(): void {
 
-    this.recipeForm = this.fb.group({
+    this.receptaiForm = this.fb.group({
       receptasName: ['', [
         Validators.required
       ]],
@@ -41,7 +41,7 @@ export class ReceptaiService {
       ingredients: this.fb.array([])
     })
 
-    this.recipeForm.statusChanges.subscribe((status) => {
+    this.receptaiForm.statusChanges.subscribe((status) => {
       this.status = status;
     })
   }
@@ -57,13 +57,8 @@ export class ReceptaiService {
     }))
   }
 
-  getReceptas(id:string){
-    return this.http.get<ReceptaiModel>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages/"+id+".json")
-  
-  }
-
-  postReceptai(recipeForm: FormGroup){
-    const receptai = new ReceptaiModel(this.authService.user.email, this.authService.user.id, recipeForm);
+  postReceptai(receptaiForm: FormGroup){
+    const receptai = new ReceptaiModel(this.authService.user.email, this.authService.user.id, receptaiForm);
     return this.http.post<{name:string}>("https://receptuknyga-b5c68-default-rtdb.europe-west1.firebasedatabase.app/messages.json", receptai,
     {
       params:new HttpParams().set('auth', this.authService.user.token)

@@ -16,7 +16,7 @@ export class RasomiComponent implements OnInit {
  public postDate: any = new Date();
 
   constructor(private receptaiService:ReceptaiService, private fb:FormBuilder, private datePipe:DatePipe) {
-    this.postDate = this.datePipe.transform(this.postDate, "short");
+    this.postDate = this.datePipe.transform(this.postDate, 'short');
    }
 
   ngOnInit(): void {

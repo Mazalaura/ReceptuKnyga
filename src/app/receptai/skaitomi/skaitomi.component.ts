@@ -26,8 +26,8 @@ export class SkaitomiComponent implements OnInit {
     // if(this.currentEmail == this.adminEmail){
     //   this.adminLoggedIn=true;
     // }
-    this.receptaiService.getReceptai().subscribe((receptai)=>{
-      this.receptai=receptai;
+    this.receptaiService.getReceptai().subscribe((receptas)=>{
+      this.receptai=receptas;
     });
   }
   onDeleteRecipe(id:string){

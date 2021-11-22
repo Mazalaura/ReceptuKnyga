@@ -6,12 +6,13 @@ import {tap} from 'rxjs/operators'
 import { User } from '../auth/user.model';
 
 export interface AuthResponse {
-  idToken: string; //  A Firebase Auth ID token for the authenticated user.
-  email: string; // 	The email for the authenticated user.
-  refreshToken: string; // 	A Firebase Auth refresh token for the authenticated user.
-  expiresIn: string; // 	The number of seconds in which the ID token expires.
-  localId: string; // 	The uid of the authenticated user.
-  registered?: boolean;
+    idToken: string,	//A Firebase Auth ID token for the authenticated user.
+    email: string, //	The email for the authenticated user.
+    refreshToken: string,	//A Firebase Auth refresh token for the authenticated user.
+    expiresIn: string, //	The number of seconds in which the ID token expires.
+    localId: string,	//The uid of the authenticated user.
+    registered?: boolean //	Whether the email is for an existing account.
+  
   }
 
 @Injectable({
@@ -50,7 +51,7 @@ export class AuthService {
             returnSecureToken:true
         }).pipe(tap((response)=>{
             this.userAuth(response);
-        }))
+        }));
     }
 
     login(email:string, password:string){
@@ -85,5 +86,6 @@ export class AuthService {
         this.userSub.next(null);
         localStorage.removeItem('user');
         this.router.navigate(['/auth', 'login']);
+        this.reloadCurrentRoute();
     }
 }

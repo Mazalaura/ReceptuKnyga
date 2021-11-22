@@ -4,7 +4,7 @@ export class ReceptaiModel{
     constructor(        
         public email: string,
         public uid: string,
-        public recipeForm: FormGroup,
+        public receptaiForm: FormGroup,
         public id?: string
     ){
 
