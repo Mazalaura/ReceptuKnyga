@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light"(mouseup)="isShown = !isShown">
-    <div class="container col-lg-8 col-md-2">
+<nav class="navbar navbar-expand-lg bg-light"(mouseup)="isShown = !isShown">
+    <div class="container col-lg-8 d-inline-block">
       <a class="navbar-brand col-md-2" href="javascript:void(0);" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <svg style="height: 40px; margin-right:12px; margin-bottom:8px" aria-hidden="true" focusable="false" data-prefix="far" data-icon="book" role="img" xmlns="http://www.w3.org/200/svg" viewBox="0 0 448 512" class="svg-inline--fa"></svg> 
         <b><i><i class="bi bi-journal-richtext">
@@ -27,13 +27,19 @@
             </a>
           </li>
           <li id="specialLiElement" class="nav-item my-2 float-end" *ngIf="loggedIn">
-            <a href="" class="btn btn-outline-secondary my-2 " (click)="onLoginLogout()">Atsijungti</a>
+            <a href="" class="btn btn-outline-secondary mx-2" (click)="onLoginLogout()">
+              Atsijungti
+            </a>
           </li>
           <li class="nav-item my-2" *ngIf="!loggedIn">
-            <a [routerLink]="['auth', 'login']" class="btn btn-outline-light mx-2" (click)="onClickLogin()">Prisijungti</a>
+            <a [routerLink]="['auth', 'login']" class="btn btn-light mx-2" (click)="onClickLogin()">
+              Prisijungti
+            </a>
           </li>
           <li class="nav-item my-2" *ngIf="!loggedIn">
-            <a [routerLink]="['auth', 'subscribe']" class="btn btn-light mx-2" (click)="onClickRegister()">Registruotis</a>
+            <a [routerLink]="['auth', 'subscribe']" class="btn btn-outline-light mx-2" (click)="onClickRegister()">
+              Registruotis
+            </a>
           </li>
         </ul>
       </div>

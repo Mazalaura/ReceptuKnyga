@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class NavigationService {
    
-  public loginSubject = new Subject<boolean>();
+  public logInSubject = new Subject<boolean>();
 
   constructor() {}
 }

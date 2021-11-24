@@ -51,11 +51,11 @@ export class NavigationComponent implements OnInit, OnDestroy{
   }
 
   onClickLogin(){
-    this.navigationService.loginSubject.next(true);
+    this.navigationService.logInSubject.next(true);
   }
 
   onClickRegister() {
-    this.navigationService.loginSubject.next(false);
+    this.navigationService.logInSubject.next(false);
   }
 
   onLoginLogout() {
@@ -65,7 +65,7 @@ export class NavigationComponent implements OnInit, OnDestroy{
     } else {
       this.router.navigate(['/auth'])
     }
-    this.navigationService.loginSubject.next(true);
+    this.navigationService.logInSubject.next(true);
 
     this.authService.reloadCurrentRoute();
   }

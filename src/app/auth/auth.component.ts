@@ -28,7 +28,7 @@ export class AuthComponent implements OnInit {
       }
       
     });
-    this.navigationService.loginSubject.subscribe((isLogin) => {
+    this.navigationService.logInSubject.subscribe((isLogin) => {
       this.isLogin = isLogin;
   })
   }
