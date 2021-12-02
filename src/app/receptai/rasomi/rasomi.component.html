@@ -9,22 +9,22 @@
                     <input class="form-control" placholder="Įrašykite recepto pavadinimą" formControlName="receptasName">
                     <span  *ngIf="receptasName.invalid && receptasName.touched ">Laukas privalomas</span>
                 </div>
-                <!-- <div class="d-flex"> -->
-                    <!-- <div class="mb-3 w-50 " style="padding-right: 8px;">
+                <div class="d-flex"> 
+                    <div class="mb-3 w-50 " style="padding-right: 8px;">
                         <label for="" class="form-label">Paruošimo laikas</label>
                         <input formControlName="receptasPrepTime" class="form-control timepicker" type="time">
                         <span *ngIf="receptasPrepTime.invalid && receptasPrepTime.touched">
                             Laukas privalomas
                         </span>
-                    </div> -->
-                    <!-- <div class="mb-3 w-50" style="padding-left: 8px;">
+                    </div>
+                    <div class="mb-3 w-50" style="padding-left: 8px;">
                         <label for="" class="form-label">Kepimo laikas</label>
                         <input  formControlName="receptasCookTime" class="form-control timepicker" type="time">
                         <span *ngIf="receptasCookTime.invalid && receptasCookTime.touched">
                         Laukas privalomas
                         </span>
-                    </div> -->
-                <!-- </div> -->
+                    </div> 
+                </div>
                 <div class="mb-3">
                     <label for="" class="form-label" style="color:saddlebrown">Recepto aprašymas</label>
                     <textarea class="form-control" style="height: 100px" formControlName="receptasText" rows="6"></textarea>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label mt-3">Nuotrauka</label>
-                    <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30"
+                    <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="20"
                     required formControlName="receptasImg"  class="form-control">
                     <span *ngIf="receptasImg.invalid && receptasImg.touched">
                         Netinkamas formatas 
